@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Agent / local tooling
+.claude/
+
+# Node (only if local tooling is ever added)
+node_modules/
