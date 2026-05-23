@@ -235,6 +235,7 @@ profile = WorkloadProfile(<br>
 &nbsp;&nbsp;&nbsp;&nbsp;optimize_for=<span class="st">"balanced"</span>,<br>
 )<br>
 <br>
+<span class="cm"># supply candidates yourself, or fetch them live with cloudfit-provider-gcp</span><br>
 candidates = [<br>
 &nbsp;&nbsp;&nbsp;&nbsp;MachineType(id=<span class="st">"c2-standard-60"</span>,       provider=<span class="st">"gcp"</span>, vcpu=<span class="num">60</span>, ram_gb=<span class="num">240</span>, price_hr=<span class="num">3.13</span>),<br>
 &nbsp;&nbsp;&nbsp;&nbsp;MachineType(id=<span class="st">"c3d-standard-60-lssd"</span>, provider=<span class="st">"gcp"</span>, vcpu=<span class="num">60</span>, ram_gb=<span class="num">240</span>, price_hr=<span class="num">3.39</span>),<br>
@@ -271,10 +272,10 @@ candidates = [<br>
       <div class="eco-desc">Scoring engine, workload profiles, hard floor filters, dynamic disk sizing. Pure Python — no cloud credentials needed.</div>
       <div class="eco-install">pip install cloudfit-core</div>
     </a>
-    <a class="eco-card" href="https://github.com/cloudfit-io" target="_blank" rel="noopener">
-      <div class="eco-status soon">○ coming soon</div>
+    <a class="eco-card" href="https://github.com/cloudfit-io/cloudfit-provider-gcp" target="_blank" rel="noopener">
+      <div class="eco-status live">● live</div>
       <div class="eco-name">cloudfit-provider-gcp</div>
-      <div class="eco-desc">Fetches GCP Compute Engine machine types, pricing, and availability. Runs on a daily cron and feeds the registry.</div>
+      <div class="eco-desc">Fetches GCP Compute Engine machine types, pricing, and availability and normalizes them for cloudfit-core. Can run on a daily cron to feed the registry.</div>
       <div class="eco-install">pip install cloudfit-provider-gcp</div>
     </a>
     <a class="eco-card" href="https://github.com/cloudfit-io" target="_blank" rel="noopener">
