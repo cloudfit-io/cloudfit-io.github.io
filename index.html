@@ -24,8 +24,8 @@ html { scroll-behavior: smooth; font-size: 16px; }
   --border:   rgba(255,255,255,0.07);
   --border2:  rgba(255,255,255,0.13);
   --text:     #e2e8e4;
-  --muted:    #7a8c80;
-  --dim:      #3d4a40;
+  --muted:    #a8bcb0;
+  --dim:      #5a6e60;
   --accent:   #4dff91;
   --accent2:  #00c9ff;
   --amber:    #f5c542;
@@ -168,7 +168,7 @@ nav {
 
 .hero-sub {
   font-size: 14px;
-  color: var(--muted);
+  color: #c2d4ca;
   line-height: 1.8;
   max-width: 460px;
   margin-bottom: 36px;
@@ -316,7 +316,7 @@ nav {
   margin-bottom: 8px;
   letter-spacing: 0.03em;
 }
-.how-body { font-size: 12px; color: var(--muted); line-height: 1.7; }
+.how-body { font-size: 12px; color: #a8bcb0; line-height: 1.7; }
 
 /* ── archetypes ── */
 .arch-grid {
@@ -364,7 +364,7 @@ nav {
   margin-bottom: 8px;
   color: var(--text);
 }
-.arch-detail-body { font-size: 12px; color: var(--muted); line-height: 1.7; }
+.arch-detail-body { font-size: 12px; color: #a8bcb0; line-height: 1.7; }
 .arch-tools { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
 .tool-tag {
   font-size: 10px;
@@ -514,7 +514,7 @@ tbody tr:last-child td { border-bottom: none; }
 .eco-status.soon { color: var(--dim); }
 .eco-status.related { color: var(--accent2); }
 .eco-name { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 6px; }
-.eco-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+.eco-desc { font-size: 12px; color: #a8bcb0; line-height: 1.6; }
 .eco-install {
   font-size: 11px;
   color: var(--accent);
@@ -548,7 +548,7 @@ tbody tr:last-child td { border-bottom: none; }
   margin-bottom: 12px;
   color: var(--text);
 }
-.author-bio { font-size: 13px; color: var(--muted); line-height: 1.8; margin-bottom: 20px; }
+.author-bio { font-size: 13px; color: #c2d4ca; line-height: 1.8; margin-bottom: 20px; }
 .author-links { display: flex; flex-direction: column; gap: 8px; }
 .author-link {
   display: flex;
@@ -701,7 +701,7 @@ code {
       </div>
       <div class="install-line">
         <span class="prompt"></span>
-        <span class="cmd acc">'c3d-standard-60-lssd'<span class="cursor">█</span></span>
+        <span class="cmd acc">'c2-standard-60'<span class="cursor">█</span></span>
       </div>
     </div>
   </div>
@@ -733,7 +733,7 @@ code {
     <div class="how-card">
       <div class="how-num">3</div>
       <div class="how-title">Get a ranked recommendation</div>
-      <div class="how-body">Receive a ranked list with composite scores and sub-scores for each candidate. Integrate recommendations into Terraform, Nextflow config, or any IaC pipeline. Stays current as providers deprecate instance families.</div>
+      <div class="how-body">Receive a ranked list with composite scores and sub-scores for each candidate. Feed the result into Terraform, Nextflow, or any IaC pipeline. As provider plugins come online, the registry stays current as instance families are deprecated and released.</div>
     </div>
   </div>
 </section>
@@ -870,9 +870,9 @@ candidates = [<br>
     </div>
   </div>
   <div class="output-block">
-    <span class="out-rank">#1</span><span class="out-inst">c3d-standard-60-lssd &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="out-score">score=0.72</span>&nbsp;&nbsp;<span class="out-price">$3.39/hr</span><br>
-    <span class="out-rank">#2</span><span class="out-inst">c2-standard-60 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="out-score">score=0.64</span>&nbsp;&nbsp;<span class="out-price">$3.13/hr</span><br>
-    <span class="out-rank">#3</span><span class="out-inst">c7i.24xlarge &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="out-score">score=0.58</span>&nbsp;&nbsp;<span class="out-price">$4.28/hr</span>
+    <span class="out-rank">#1</span><span class="out-inst">c2-standard-60 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="out-score">score=0.81</span>&nbsp;&nbsp;<span class="out-price">$3.13/hr</span><br>
+    <span class="out-rank">#2</span><span class="out-inst">c3d-standard-60-lssd &nbsp;&nbsp;</span><span class="out-score">score=0.80</span>&nbsp;&nbsp;<span class="out-price">$3.39/hr</span><br>
+    <span class="out-rank">#3</span><span class="out-inst">c7i.24xlarge &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="out-score">score=0.00</span>&nbsp;&nbsp;<span class="out-price">$4.28/hr</span>&nbsp;&nbsp;<span class="out-note">— disqualified: 192 GB RAM &lt; 224 required</span>
   </div>
 </section>
 </div>
@@ -938,7 +938,7 @@ candidates = [<br>
     <div class="author-label">Author</div>
     <div class="author-name">Chaitanya Krishna<br>Kasaraneni</div>
     <p class="author-bio">
-      Distinguished Software Engineer with 10+ years in data engineering, cloud infrastructure, and bioinformatics workflow orchestration. Published researcher across AI/ML, medical imaging, and computational drug discovery.
+      Distinguished Software Engineer with 8 years in data engineering, cloud infrastructure, and bioinformatics workflow orchestration. Published researcher across AI/ML, medical imaging, and computational drug discovery.
     </p>
     <div class="author-links">
       <a href="https://ckasaraneni.com" target="_blank" rel="noopener" class="author-link">
@@ -947,7 +947,7 @@ candidates = [<br>
       </a>
       <a href="https://scholar.google.com/citations?user=Y2S8D2UAAAAJ" target="_blank" rel="noopener" class="author-link">
         <div class="author-link-icon">GS</div>
-        Google Scholar · 14 citations
+        Google Scholar
       </a>
       <a href="https://orcid.org/0000-0001-5792-1095" target="_blank" rel="noopener" class="author-link">
         <div class="author-link-icon">ID</div>
@@ -1021,13 +1021,13 @@ function copyInstall(btn) {
 const ARCHETYPES = [
   {
     tag: 'I/O bound', name: 'Disk-saturating workloads',
-    body: 'Sequential read/write dominates wall-clock time. More CPU doesn\'t help — faster local SSD does. The scoring engine weights disk throughput and prefers instances with local SSD attachments.',
+    body: 'Sequential read/write dominates wall-clock time. More CPU doesn\'t help — faster local SSD does. Today cloudfit scores these workloads on cost, performance, and availability; disk-throughput weighting and local-SSD preference are on the roadmap.',
     tools: ['Sequencing demultiplexing', 'Short-read alignment', 'Long-read alignment'],
     vcpu: 60, ram: '224 GB', disk: '15–20 TB', spot: 'No — stateful I/O',
   },
   {
     tag: 'CPU bound', name: 'Thread-parallel workloads',
-    body: 'Computation saturates all available cores. Scales linearly with vCPU count up to a ceiling. Scoring weights compute-optimized instance families with high clock speed and DDR5 memory.',
+    body: 'Computation saturates all available cores. Scales linearly with vCPU count up to a ceiling. Scoring favors instances that satisfy your vCPU and RAM request at the best composite score; instance-family and clock-speed awareness are planned.',
     tools: ['Variant calling', 'De novo assembly', 'RNA-seq quantification'],
     vcpu: 32, ram: '64–512 GB', disk: '1–5 TB', spot: 'Depends on tool',
   },
@@ -1039,13 +1039,13 @@ const ARCHETYPES = [
   },
   {
     tag: 'GPU / ML', name: 'GPU inference and training',
-    body: 'Structure prediction, variant calling acceleration, and basecalling all saturate GPU compute. cloudfit filters by GPU count and VRAM before scoring. Multi-stage workloads (CPU MSA → GPU inference) can get split recommendations.',
+    body: 'Structure prediction, variant calling acceleration, and basecalling all saturate GPU compute. cloudfit filters by GPU count and VRAM before scoring. Split recommendations for multi-stage workloads (CPU MSA → GPU inference) are planned.',
     tools: ['Protein structure prediction', 'GPU variant calling', 'ONT basecalling'],
     vcpu: 8, ram: '32–64 GB', disk: '1–3 TB', spot: 'No — long-running',
   },
   {
     tag: 'Burst parallel', name: 'Scatter-gather fleet workloads',
-    body: 'Each task is an independent stateless container. The right recommendation is many small preemptible instances — not one large one. cloudfit returns a fleet spec instead of a single instance for burst archetypes.',
+    body: 'Each task is an independent stateless container. The right recommendation is many small preemptible instances — not one large one. Fleet recommendations (many small spot instances instead of one large node) are planned for burst archetypes.',
     tools: ['Nextflow pipelines', 'Snakemake DAGs', 'WDL / Cromwell scatter'],
     vcpu: 4, ram: '16–32 GB', disk: '< 1 TB', spot: 'Yes — restart-tolerant',
   },
