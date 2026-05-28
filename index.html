@@ -19,11 +19,12 @@
   <div class="nav-inner">
     <a class="nav-logo" href="#">cloud<span>fit</span></a>
     <div class="nav-links">
+      <a href="#try">Try it</a>
       <a href="#how">How it works</a>
       <a href="#pipelines">Pipelines</a>
       <a href="#scoring">Scoring</a>
       <a href="#ecosystem">Ecosystem</a>
-      <a href="https://github.com/cloudfit-io/cloudfit-core" target="_blank" rel="noopener" class="cta">GitHub ↗</a>
+      <a href="https://chaitanyakasaraneni-cloudfit-api.hf.space/docs" target="_blank" rel="noopener" class="cta">Live demo ↗</a>
     </div>
   </div>
 </nav>
@@ -38,9 +39,9 @@
       cloudfit scores and ranks cloud instances across AWS, GCP, and Azure against your workload profile — and stays current as providers deprecate and release new machine types.
     </p>
     <div class="hero-actions">
-      <a href="https://github.com/cloudfit-io/cloudfit-core" target="_blank" rel="noopener" class="btn btn-primary">View on GitHub</a>
+      <a href="https://chaitanyakasaraneni-cloudfit-api.hf.space/docs" target="_blank" rel="noopener" class="btn btn-primary">Try the live API ↗</a>
+      <a href="https://github.com/cloudfit-io/cloudfit-core" target="_blank" rel="noopener" class="btn btn-ghost">GitHub ↗</a>
       <a href="https://pypi.org/project/cloudfit-core/" target="_blank" rel="noopener" class="btn btn-ghost">PyPI ↗</a>
-      <a href="https://scholar.google.com/citations?user=Y2S8D2UAAAAJ" target="_blank" rel="noopener" class="btn btn-ghost">Research ↗</a>
     </div>
   </div>
 
@@ -86,11 +87,85 @@
 
 <hr class="divider">
 
+<!-- ── TRY IT NOW ── -->
+<div class="wrap">
+<section class="section" id="try">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Try it now</h2>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="how-grid" style="grid-template-columns: 1fr 1.4fr; align-items: stretch;">
+    <div class="how-card">
+      <div class="how-title">Live API on Hugging Face Spaces</div>
+      <div class="how-body">
+        <p>The cloudfit API is running live with a bundled snapshot of 267 GCP machine types. Hit <code>/recommend</code> with a workload profile and get back a ranked list with per-factor scores in milliseconds. No credentials needed.</p>
+        <p style="margin-top:14px">
+          <a href="https://chaitanyakasaraneni-cloudfit-api.hf.space/docs" target="_blank" rel="noopener" class="btn btn-primary">Open Swagger UI ↗</a>
+        </p>
+        <p style="margin-top:10px;font-size:13px;color:var(--muted)">
+          The Space sleeps when idle, so the first request may take 30 to 60 seconds to wake the container. Subsequent requests are instant.
+        </p>
+      </div>
+    </div>
+
+    <div class="install-block">
+      <div class="install-bar">
+        <div class="install-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <span class="install-label">curl</span>
+        <button class="install-copy" onclick="copyInstall(this)">copy</button>
+      </div>
+      <div class="install-body">
+        <div class="install-line">
+          <span class="prompt">$</span>
+          <span class="cmd">curl -s https://chaitanyakasaraneni-cloudfit-api.hf.space/recommend \</span>
+        </div>
+        <div class="install-line">
+          <span class="prompt"></span>
+          <span class="cmd">&nbsp;&nbsp;-H <span class="st">'content-type: application/json'</span> \</span>
+        </div>
+        <div class="install-line">
+          <span class="prompt"></span>
+          <span class="cmd">&nbsp;&nbsp;-d <span class="st">'{</span></span>
+        </div>
+        <div class="install-line">
+          <span class="prompt"></span>
+          <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;<span class="st">"workload": {"vcpu": <span class="num">32</span>, "ram_gb": <span class="num">128</span>, "optimize_for": "balanced"},</span></span>
+        </div>
+        <div class="install-line">
+          <span class="prompt"></span>
+          <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;<span class="st">"top_k": <span class="num">3</span></span></span>
+        </div>
+        <div class="install-line">
+          <span class="prompt"></span>
+          <span class="cmd">&nbsp;&nbsp;<span class="st">}'</span></span>
+        </div>
+        <div class="output-line" style="margin-top:10px">→ ranked list of 3 instances with score, cost_score, perf_score, avail_score</div>
+
+        <div class="install-line" style="margin-top:14px">
+          <span class="prompt">$</span>
+          <span class="cmd"><span class="cm"># browse the catalog</span></span>
+        </div>
+        <div class="install-line">
+          <span class="prompt">$</span>
+          <span class="cmd">curl <span class="st">'https://chaitanyakasaraneni-cloudfit-api.hf.space/instances?gpu=true&limit=5'</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<hr class="divider">
+
 <!-- ── HOW IT WORKS ── -->
 <div class="wrap">
 <section class="section" id="how">
   <div class="section-header">
-    <span class="section-num">01</span>
+    <span class="section-num">02</span>
     <h2 class="section-title">How it works</h2>
     <div class="section-rule"></div>
   </div>
@@ -121,7 +196,7 @@
 <div class="wrap">
 <section class="section" id="pipelines">
   <div class="section-header">
-    <span class="section-num">02</span>
+    <span class="section-num">03</span>
     <h2 class="section-title">Bioinformatics pipelines</h2>
     <div class="section-rule"></div>
   </div>
@@ -166,7 +241,7 @@
 <div class="wrap">
 <section class="section" id="scoring">
   <div class="section-header">
-    <span class="section-num">03</span>
+    <span class="section-num">04</span>
     <h2 class="section-title">Scoring model</h2>
     <div class="section-rule"></div>
   </div>
@@ -260,7 +335,7 @@ candidates = [<br>
 <div class="wrap">
 <section class="section" id="ecosystem">
   <div class="section-header">
-    <span class="section-num">04</span>
+    <span class="section-num">05</span>
     <h2 class="section-title">Ecosystem</h2>
     <div class="section-rule"></div>
   </div>
@@ -284,11 +359,11 @@ candidates = [<br>
       <div class="eco-desc">Fetches AWS EC2 instance specs and on-demand pricing. Handles deprecation tombstoning so IaC configs warn instead of break.</div>
       <div class="eco-install">pip install cloudfit-provider-aws</div>
     </a>
-    <a class="eco-card" href="https://github.com/cloudfit-io" target="_blank" rel="noopener">
-      <div class="eco-status soon">○ coming soon</div>
+    <a class="eco-card" href="https://chaitanyakasaraneni-cloudfit-api.hf.space/docs" target="_blank" rel="noopener">
+      <div class="eco-status live">● live</div>
       <div class="eco-name">cloudfit-api</div>
-      <div class="eco-desc">REST API — <code>/recommend</code> · <code>/instances</code> · <code>/diff</code>. FastAPI service deployed on Cloud Run. OpenAPI spec included.</div>
-      <div class="eco-install">docker pull cloudfit-io/api</div>
+      <div class="eco-desc">REST API. <code>/recommend</code> · <code>/instances</code> · <code>/providers</code> · <code>/diff</code>. FastAPI service with OpenAPI docs. Live demo on Hugging Face Spaces.</div>
+      <div class="eco-install">pip install cloudfit-api</div>
     </a>
     <a class="eco-card" href="https://github.com/chaitanyakasaraneni/samplesheet-parser" target="_blank" rel="noopener">
       <div class="eco-status related">◈ related</div>
@@ -299,7 +374,7 @@ candidates = [<br>
     <a class="eco-card" href="https://github.com/chaitanyakasaraneni/clinops" target="_blank" rel="noopener">
       <div class="eco-status related">◈ related</div>
       <div class="eco-name">clinops</div>
-      <div class="eco-desc">Clinical ML data quality library. MIMIC-III loader, multi-organ deterioration research integration.</div>
+      <div class="eco-desc">Clinical ML data quality library. MIMIC-III dataset support and reproducible quality checks for clinical research.</div>
       <div class="eco-install">pip install clinops</div>
     </a>
   </div>
@@ -315,7 +390,7 @@ candidates = [<br>
     <div class="author-label">Author</div>
     <div class="author-name">Chaitanya Krishna<br>Kasaraneni</div>
     <p class="author-bio">
-      Distinguished Software Engineer with 8 years in data engineering, cloud infrastructure, and bioinformatics workflow orchestration. Published researcher across AI/ML, medical imaging, and computational drug discovery.
+      Software engineer focused on cloud-based data infrastructure for batch and bioinformatics workloads. Published researcher across AI/ML, medical imaging, and computational drug discovery.
     </p>
     <div class="author-links">
       <a href="https://ckasaraneni.com" target="_blank" rel="noopener" class="author-link">
@@ -377,6 +452,7 @@ candidates = [<br>
     <strong>cloudfit-io</strong> · Apache 2.0 · built by Chaitanya Krishna Kasaraneni
   </div>
   <div class="footer-right">
+    <a href="https://github.com/cloudfit-io/cloudfit-core#known-limitations" target="_blank" rel="noopener">Honest limitations</a>
     <a href="https://github.com/cloudfit-io/cloudfit-core" target="_blank" rel="noopener">GitHub</a>
     <a href="https://pypi.org/project/cloudfit-core/" target="_blank" rel="noopener">PyPI</a>
     <a href="https://orcid.org/0000-0001-5792-1095" target="_blank" rel="noopener">ORCID</a>
