@@ -98,7 +98,7 @@
 
   <div class="how-card" style="margin-bottom: 24px;">
     <div class="how-body">
-      <p>The cloudfit API is running live on Hugging Face Spaces with a bundled snapshot of 267 GCP machine types. No credentials needed. Five endpoints in total: <code>/recommend</code>, <code>/instances</code>, <code>/providers</code>, <code>/diff</code>, and <code>/health</code>.</p>
+      <p>The cloudfit API is running live on Hugging Face Spaces with a bundled snapshot of <strong>875 GCP machine types across 5 regions</strong> (us-central1, us-east1, us-west1, europe-west4, asia-southeast1) with realistic asymmetric availability. No credentials needed. Five endpoints in total: <code>/recommend</code>, <code>/instances</code>, <code>/providers</code>, <code>/diff</code>, and <code>/health</code>.</p>
       <p style="margin-top:12px">
         <a href="https://chaitanyakasaraneni-cloudfit-api.hf.space/docs" target="_blank" rel="noopener" class="btn btn-primary">Open Swagger UI ↗</a>
         &nbsp;
@@ -124,9 +124,10 @@
         <div class="install-line"><span class="prompt"></span><span class="cmd">&nbsp;&nbsp;-H <span class="st">'content-type: application/json'</span> \</span></div>
         <div class="install-line"><span class="prompt"></span><span class="cmd">&nbsp;&nbsp;-d <span class="st">'{</span></span></div>
         <div class="install-line"><span class="prompt"></span><span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;<span class="st">"workload": {"vcpu": <span class="num">32</span>, "ram_gb": <span class="num">128</span>, "optimize_for": "balanced"},</span></span></div>
+        <div class="install-line"><span class="prompt"></span><span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;<span class="st">"region": "us-central1",</span></span></div>
         <div class="install-line"><span class="prompt"></span><span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;<span class="st">"top_k": <span class="num">3</span></span></span></div>
         <div class="install-line"><span class="prompt"></span><span class="cmd">&nbsp;&nbsp;<span class="st">}'</span></span></div>
-        <div class="output-line" style="margin-top:10px">→ ranked list of 3 instances with per-factor scores</div>
+        <div class="output-line" style="margin-top:10px">→ ranked list of 3 instances, filtered to instances available in us-central1</div>
       </div>
     </div>
 
@@ -138,10 +139,10 @@
         <button class="install-copy" onclick="copyInstall(this)">copy</button>
       </div>
       <div class="install-body">
-        <div class="install-line"><span class="prompt">$</span><span class="cmd"><span class="cm"># filter by vCPU, GPU, region, status</span></span></div>
-        <div class="install-line"><span class="prompt">$</span><span class="cmd">curl <span class="st">'https://chaitanyakasaraneni-cloudfit-api.hf.space/instances?min_vcpu=<span class="num">64</span>&amp;gpu=false&amp;limit=<span class="num">5</span>'</span></span></div>
-        <div class="install-line" style="margin-top:8px"><span class="prompt">$</span><span class="cmd"><span class="cm"># GPU instances only</span></span></div>
-        <div class="install-line"><span class="prompt">$</span><span class="cmd">curl <span class="st">'https://chaitanyakasaraneni-cloudfit-api.hf.space/instances?gpu=true&amp;limit=<span class="num">5</span>'</span></span></div>
+        <div class="install-line"><span class="prompt">$</span><span class="cmd"><span class="cm"># filter by region, vCPU, GPU, status</span></span></div>
+        <div class="install-line"><span class="prompt">$</span><span class="cmd">curl <span class="st">'https://chaitanyakasaraneni-cloudfit-api.hf.space/instances?region=europe-west4&amp;min_vcpu=<span class="num">64</span>&amp;limit=<span class="num">5</span>'</span></span></div>
+        <div class="install-line" style="margin-top:8px"><span class="prompt">$</span><span class="cmd"><span class="cm"># asia-southeast1 has fewer families in the bundled snapshot</span></span></div>
+        <div class="install-line"><span class="prompt">$</span><span class="cmd">curl <span class="st">'https://chaitanyakasaraneni-cloudfit-api.hf.space/instances?region=asia-southeast1&amp;limit=<span class="num">5</span>'</span></span></div>
         <div class="output-line" style="margin-top:10px">→ matching instances with full specs and pricing</div>
       </div>
     </div>
@@ -385,7 +386,7 @@ candidates = [<br>
     <a class="eco-card" href="https://chaitanyakasaraneni-cloudfit-api.hf.space/docs" target="_blank" rel="noopener">
       <div class="eco-status live">● live</div>
       <div class="eco-name">cloudfit-api</div>
-      <div class="eco-desc">REST API (service, not a library). <code>/recommend</code> · <code>/instances</code> · <code>/providers</code> · <code>/diff</code>. FastAPI with OpenAPI docs. Self-host with Docker, or use the live demo on Hugging Face Spaces.</div>
+      <div class="eco-desc">REST API (service, not a library). <code>/recommend</code> · <code>/instances</code> · <code>/providers</code> · <code>/diff</code>. Multi-region snapshot (5 regions). FastAPI with OpenAPI docs. Self-host with Docker, or use the live demo on Hugging Face Spaces.</div>
       <div class="eco-install">→ open /docs to try it</div>
     </a>
     <a class="eco-card" href="https://github.com/chaitanyakasaraneni/samplesheet-parser" target="_blank" rel="noopener">
