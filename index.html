@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="cloudfit — cloud-agnostic machine type advisor for computational and bioinformatics workloads. Scores and ranks AWS, GCP, and Azure instances against your workload profile.">
+<meta name="description" content="cloudfit: cloud-agnostic machine type recommender for computational and bioinformatics workloads. Scores and ranks AWS, GCP, and Azure instances against your workload profile.">
 <meta name="author" content="Chaitanya Krishna Kasaraneni">
-<meta property="og:title" content="cloudfit — cloud-agnostic machine type advisor">
+<meta property="og:title" content="cloudfit: cloud-agnostic machine type recommender">
 <meta property="og:description" content="Like a load balancer for cloud instances. Tells you the best machine for your workload across AWS, GCP, and Azure.">
 <meta property="og:url" content="https://cloudfit-io.github.io">
-<title>cloudfit — cloud-agnostic machine type advisor</title>
+<title>cloudfit: cloud-agnostic machine type recommender</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles/main.css">
@@ -24,7 +24,7 @@
       <a href="#pipelines">Pipelines</a>
       <a href="#scoring">Scoring</a>
       <a href="#ecosystem">Ecosystem</a>
-      <a href="https://chaitanyakasaraneni-cloudfit-api.hf.space/docs" target="_blank" rel="noopener" class="cta">Live demo ↗</a>
+      <a href="https://chaitanyakasaraneni-cloudfit-ui.hf.space" target="_blank" rel="noopener" class="cta">Try the demo ↗</a>
     </div>
   </div>
 </nav>
@@ -36,10 +36,11 @@
     <div class="hero-kicker">open source · cloud-agnostic · bioinformatics-first</div>
     <h1>The right machine<br>for every<br><em>workload</em></h1>
     <p class="hero-sub">
-      cloudfit scores and ranks cloud instances across AWS, GCP, and Azure against your workload profile — and stays current as providers deprecate and release new machine types.
+      cloudfit scores and ranks cloud instances across AWS, GCP, and Azure against your workload profile, and stays current as providers deprecate and release new machine types.
     </p>
     <div class="hero-actions">
-      <a href="https://chaitanyakasaraneni-cloudfit-api.hf.space/docs" target="_blank" rel="noopener" class="btn btn-primary">Try the live API ↗</a>
+      <a href="https://chaitanyakasaraneni-cloudfit-ui.hf.space" target="_blank" rel="noopener" class="btn btn-primary">Try the demo ↗</a>
+      <a href="https://chaitanyakasaraneni-cloudfit-api.hf.space/docs" target="_blank" rel="noopener" class="btn btn-ghost">API docs ↗</a>
       <a href="https://github.com/cloudfit-io/cloudfit-core" target="_blank" rel="noopener" class="btn btn-ghost">GitHub ↗</a>
       <a href="https://pypi.org/project/cloudfit-core/" target="_blank" rel="noopener" class="btn btn-ghost">PyPI ↗</a>
     </div>
@@ -98,9 +99,11 @@
 
   <div class="how-card" style="margin-bottom: 24px;">
     <div class="how-body">
-      <p>The cloudfit API is running live on Hugging Face Spaces with a bundled snapshot of <strong>875 GCP machine types across 5 regions</strong> (us-central1, us-east1, us-west1, europe-west4, asia-southeast1) with realistic asymmetric availability. No credentials needed. Five endpoints in total: <code>/recommend</code>, <code>/instances</code>, <code>/providers</code>, <code>/diff</code>, and <code>/health</code>.</p>
+      <p>Two ways to try cloudfit right now. The one-click <strong>Gradio UI</strong> takes a workload profile through a form and returns ranked instance recommendations. The <strong>FastAPI service</strong> serves the same scoring engine over HTTP for programmatic use. Both run on a bundled snapshot of <strong>875 GCP machine types across 5 regions</strong> (us-central1, us-east1, us-west1, europe-west4, asia-southeast1) with realistic asymmetric availability. No credentials needed.</p>
       <p style="margin-top:12px">
-        <a href="https://chaitanyakasaraneni-cloudfit-api.hf.space/docs" target="_blank" rel="noopener" class="btn btn-primary">Open Swagger UI ↗</a>
+        <a href="https://chaitanyakasaraneni-cloudfit-ui.hf.space" target="_blank" rel="noopener" class="btn btn-primary">Open the UI ↗</a>
+        &nbsp;
+        <a href="https://chaitanyakasaraneni-cloudfit-api.hf.space/docs" target="_blank" rel="noopener" class="btn btn-ghost">Swagger UI ↗</a>
         &nbsp;
         <a href="https://chaitanyakasaraneni-cloudfit-api.hf.space/health" target="_blank" rel="noopener" class="btn btn-ghost">/health ↗</a>
       </p>
@@ -198,7 +201,7 @@
     <div class="how-card">
       <div class="how-num">1</div>
       <div class="how-title">Describe your workload</div>
-      <div class="how-body">Declare vCPU, RAM, archetype, disk requirements, GPU needs, and spot tolerance in a <code>WorkloadProfile</code> or a YAML file. cloudfit understands five resource archetypes — I/O, CPU, memory, GPU, and burst-parallel.</div>
+      <div class="how-body">Declare vCPU, RAM, archetype, disk requirements, GPU needs, and spot tolerance in a <code>WorkloadProfile</code> or a YAML file. cloudfit understands five resource archetypes: I/O, CPU, memory, GPU, and burst-parallel.</div>
     </div>
     <div class="how-card">
       <div class="how-num">2</div>
@@ -298,7 +301,7 @@
           <td><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:33%"></div></div>0.33</div></td>
           <td><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:34%;background:var(--accent2)"></div></div>0.34</div></td>
           <td><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:33%;background:var(--amber)"></div></div>0.33</div></td>
-          <td>Default — production workloads</td>
+          <td>Default for production workloads</td>
         </tr>
         <tr>
           <td>performance</td>
@@ -368,7 +371,7 @@ candidates = [<br>
     <a class="eco-card" href="https://github.com/cloudfit-io/cloudfit-core" target="_blank" rel="noopener">
       <div class="eco-status live">● live</div>
       <div class="eco-name">cloudfit-core</div>
-      <div class="eco-desc">Scoring engine, workload profiles, hard floor filters, dynamic disk sizing. Pure Python — no cloud credentials needed.</div>
+      <div class="eco-desc">Scoring engine, workload profiles, hard floor filters, dynamic disk sizing. Pure Python, no cloud credentials needed.</div>
       <div class="eco-install">pip install cloudfit-core</div>
     </a>
     <a class="eco-card" href="https://github.com/cloudfit-io/cloudfit-provider-gcp" target="_blank" rel="noopener">
@@ -388,6 +391,12 @@ candidates = [<br>
       <div class="eco-name">cloudfit-api</div>
       <div class="eco-desc">REST API (service, not a library). <code>/recommend</code> · <code>/instances</code> · <code>/providers</code> · <code>/diff</code>. Multi-region snapshot (5 regions). FastAPI with OpenAPI docs. Self-host with Docker, or use the live demo on Hugging Face Spaces.</div>
       <div class="eco-install">→ open /docs to try it</div>
+    </a>
+    <a class="eco-card" href="https://chaitanyakasaraneni-cloudfit-ui.hf.space" target="_blank" rel="noopener">
+      <div class="eco-status live">● live</div>
+      <div class="eco-name">cloudfit-ui</div>
+      <div class="eco-desc">One-click Gradio demo over the scoring engine. Workload profile in, ranked machine types out. Five example workloads (BWA-MEM2, Cell Ranger, AlphaFold, Nextflow burst, Spark ETL) built in.</div>
+      <div class="eco-install">→ open the demo</div>
     </a>
     <a class="eco-card" href="https://github.com/chaitanyakasaraneni/samplesheet-parser" target="_blank" rel="noopener">
       <div class="eco-status related">◈ related</div>
