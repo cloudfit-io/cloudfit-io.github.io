@@ -1,8 +1,8 @@
 # cloudfit-io.github.io
 
-Source for the **cloudfit** landing page — published at **https://cloudfit-io.github.io** via GitHub Pages.
+Source for the **cloudfit** landing page, published at **https://cloudfit-io.github.io** via GitHub Pages.
 
-A static, single-page site introducing [`cloudfit-core`](https://github.com/cloudfit-io/cloudfit-core), a cloud-agnostic machine type scoring engine for computational and bioinformatics workloads. No build step, no framework — plain HTML/CSS/JS.
+A static, single-page site introducing [`cloudfit-core`](https://github.com/cloudfit-io/cloudfit-core), a cloud-agnostic machine type scoring engine for computational and bioinformatics workloads. No build step, no framework: plain HTML/CSS/JS.
 
 ## Structure
 
@@ -29,7 +29,7 @@ python3 -m http.server 8000
 
 ## Deployment
 
-Pushing to the default branch publishes automatically via GitHub Pages — no workflow or build required.
+Pushing to the default branch publishes automatically via GitHub Pages. No workflow or build required.
 
 ## Links
 
