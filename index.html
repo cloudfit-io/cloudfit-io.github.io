@@ -66,7 +66,7 @@
         <span class="prompt">$</span>
         <span class="cmd">pip install <span class="pkg">cloudfit-core</span></span>
       </div>
-      <div class="output-line">Successfully installed cloudfit-core-0.3.0</div>
+      <div class="output-line">Successfully installed cloudfit-core-0.4.0</div>
 
       <div class="install-line" style="margin-top:10px">
         <span class="prompt">$</span>
@@ -284,6 +284,10 @@
     score = <span>w_cost</span> × cost_score &nbsp;+&nbsp; <span>w_perf</span> × perf_score &nbsp;+&nbsp; <span>w_avail</span> × avail_score
   </div>
 
+  <p style="font-size:13px;color:var(--muted);margin:-8px 0 20px">
+    <code>cost_score</code> is relative to the candidate set (cheapest qualifying instance = 1.0, dearest = 0.0), so a real price gap moves the score. <code>archetype</code> is a classification and disk-sizing label in this release; it does not change ranking, which is driven by <code>optimize_for</code>.
+  </p>
+
   <div class="score-table-wrap">
     <table>
       <thead>
@@ -356,9 +360,9 @@ candidates = [<br>
     </div>
   </div>
   <div class="output-block">
-    <span class="out-rank">#1</span><span class="out-inst">c2-standard-60 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="out-score">score=0.81</span>&nbsp;&nbsp;<span class="out-price">$3.13/hr</span><br>
-    <span class="out-rank">#2</span><span class="out-inst">c3d-standard-60-lssd &nbsp;&nbsp;</span><span class="out-score">score=0.80</span>&nbsp;&nbsp;<span class="out-price">$3.39/hr</span><br>
-    <span class="out-rank">#3</span><span class="out-inst">c7i.24xlarge &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="out-score">score=0.00</span>&nbsp;&nbsp;<span class="out-price">$4.28/hr</span>&nbsp;&nbsp;<span class="out-note">— disqualified: 192 GB RAM &lt; 224 required</span>
+    <span class="out-rank">#1</span><span class="out-inst">c2-standard-60 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="out-score">score=1.00</span>&nbsp;&nbsp;<span class="out-price">$3.13/hr</span><br>
+    <span class="out-rank">#2</span><span class="out-inst">c3d-standard-60-lssd &nbsp;&nbsp;</span><span class="out-score">score=0.67</span>&nbsp;&nbsp;<span class="out-price">$3.39/hr</span><br>
+    <span class="out-rank">#3</span><span class="out-inst">c7i.24xlarge &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="out-score">score=0.00</span>&nbsp;&nbsp;<span class="out-price">$4.28/hr</span>&nbsp;&nbsp;<span class="out-note">disqualified: 192 GB RAM &lt; 224 required</span>
   </div>
 </section>
 </div>
