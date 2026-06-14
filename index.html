@@ -86,7 +86,7 @@
       </div>
       <div class="install-line">
         <span class="prompt"></span>
-        <span class="cmd acc">'c2-standard-60'<span class="cursor">█</span></span>
+        <span class="cmd acc">'t2d-standard-60'<span class="cursor">█</span></span>
       </div>
     </div>
   </div>
@@ -285,7 +285,7 @@
   </div>
 
   <p style="font-size:13px;color:var(--muted);margin:-8px 0 20px">
-    <code>cost_score</code> is relative to the candidate set (cheapest qualifying instance = 1.0, dearest = 0.0), so a real price gap moves the score. <code>archetype</code> is a classification and disk-sizing label in this release; it does not change ranking, which is driven by <code>optimize_for</code>.
+    <code>cost_score</code> is relative to the candidate set (cheapest qualifying instance = 1.0, dearest = 0.0), so a real price gap moves the score. <code>archetype</code> sets the per-component performance weighting (e.g. <code>mem</code> weights RAM, <code>io</code> weights local SSD against the requested scratch disk), so it shapes the ranking on top of <code>optimize_for</code> and the hard floors.
   </p>
 
   <div class="score-table-wrap">

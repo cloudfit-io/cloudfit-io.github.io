@@ -10,7 +10,7 @@ function copyInstall(btn) {
 const ARCHETYPES = [
   {
     tag: 'I/O bound', name: 'Disk-saturating workloads',
-    body: 'Sequential read/write dominates wall-clock time. More CPU doesn\'t help — faster local SSD does. Today cloudfit scores these workloads on cost, performance, and availability; disk-throughput weighting and local-SSD preference are on the roadmap.',
+    body: 'Sequential read/write dominates wall-clock time. More CPU does not help; faster local SSD does. cloudfit weights the io archetype toward local SSD (against the requested scratch disk) alongside vCPU and RAM, so SSD-equipped instances score higher for these workloads.',
     tools: ['Sequencing demultiplexing', 'Short-read alignment', 'Long-read alignment'],
     vcpu: 60, ram: '224 GB', disk: '15–20 TB', spot: 'No — stateful I/O',
   },
