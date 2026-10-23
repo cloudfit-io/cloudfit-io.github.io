@@ -248,7 +248,7 @@
     </div>
     <div class="how-card">
       <div class="how-title">Spot and committed-use pricing</div>
-      <div class="how-body">Score on <code>on_demand</code>, <code>spot</code>, or 1-year committed-use (<code>cud_1yr</code>) prices. Burst workloads default to spot because they are restart-tolerant. When an instance has no price for the chosen mode, cost falls back to on-demand rather than looking free.</div>
+      <div class="how-body">Score on <code>on_demand</code>, <code>spot</code>, or 1-year committed-use (<code>cud_1yr</code>) prices. Burst workloads default to spot because they are restart-tolerant, and so do jobs marked <code>scheduling.spot</code>. When an instance has no price for the chosen mode, cost falls back to on-demand rather than looking free.</div>
     </div>
     <div class="how-card">
       <div class="how-title">GPU-aware</div>
@@ -264,7 +264,7 @@
     </div>
     <div class="how-card">
       <div class="how-title">Archetypes, modes, and weights</div>
-      <div class="how-body">Five archetypes (I/O, CPU, memory, GPU, burst) set the perf weighting; four <code>optimize_for</code> modes (cost, balanced, performance, availability) set the score weights; custom <code>weights</code> override both. Profiles can be written in YAML and loaded with <code>from_yaml</code>.</div>
+      <div class="how-body">Five archetypes (I/O, CPU, memory, GPU, burst) set the perf weighting; four <code>optimize_for</code> modes (cost, balanced, performance, availability) set the score weights; custom <code>weights</code> override both. Profiles can be written in YAML, including pricing mode and region, and loaded with <code>from_yaml</code>.</div>
     </div>
     <div class="how-card">
       <div class="how-title">Disk sizing from the run</div>
@@ -479,7 +479,7 @@ candidates = [<br>
     <a class="eco-card" href="https://github.com/cloudfit-io/cloudfit-core" target="_blank" rel="noopener">
       <div class="eco-status live">● live</div>
       <div class="eco-name">cloudfit-core</div>
-      <div class="eco-desc">Scoring engine: workload profiles, hard floors, effective capacity, spot and committed-use pricing, GPU throughput, explainable picks, dynamic disk sizing. Pure Python, no cloud credentials needed.</div>
+      <div class="eco-desc">Scoring engine: workload profiles, hard floors, effective capacity, spot and committed-use pricing, GPU throughput, explainable picks, dynamic disk sizing. Pure Python (3.10 to 3.14), no cloud credentials needed.</div>
       <div class="eco-install">pip install cloudfit-core</div>
     </a>
     <a class="eco-card" href="https://github.com/cloudfit-io/cloudfit-provider-gcp" target="_blank" rel="noopener">
