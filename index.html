@@ -66,7 +66,7 @@
         <span class="prompt">$</span>
         <span class="cmd">pip install <span class="pkg">cloudfit-core</span></span>
       </div>
-      <div class="output-line">Successfully installed cloudfit-core-0.4.0</div>
+      <div class="output-line">Successfully installed cloudfit-core-0.8.0</div>
 
       <div class="install-line" style="margin-top:10px">
         <span class="prompt">$</span>
@@ -106,7 +106,7 @@
 
   <div class="how-card" style="margin-bottom: 24px;">
     <div class="how-body">
-      <p>Two ways to try cloudfit right now. The one-click <strong>Gradio UI</strong> takes a workload profile through a form and returns ranked instance recommendations. The <strong>FastAPI service</strong> serves the same scoring engine over HTTP for programmatic use. Both run on a bundled snapshot of <strong>875 GCP machine types across 5 regions</strong> (us-central1, us-east1, us-west1, europe-west4, asia-southeast1) with realistic asymmetric availability. No credentials needed.</p>
+      <p>Two ways to try cloudfit right now. The one-click <strong>Gradio UI</strong> takes a workload profile through a form and returns ranked instance recommendations. The <strong>FastAPI service</strong> serves the same scoring engine over HTTP for programmatic use. Both run on a bundled snapshot of <strong>875 GCP machine types across 5 regions</strong> (us-central1, us-east1, us-west1, europe-west4, asia-southeast1) with realistic asymmetric availability, per-family speed factors, GPU types, and on-demand, spot, and 1-year committed-use prices refreshed from the live GCP billing catalog. Every pick comes with a one-line reason. No credentials needed.</p>
       <p style="margin-top:12px">
         <a href="https://chaitanyakasaraneni-cloudfit-ui.hf.space" target="_blank" rel="noopener" class="btn btn-primary">Open the UI ↗</a>
         &nbsp;
@@ -133,11 +133,11 @@
         <div class="install-line"><span class="prompt">$</span><span class="cmd">curl -sX POST https://chaitanyakasaraneni-cloudfit-api.hf.space/recommend \</span></div>
         <div class="install-line"><span class="prompt"></span><span class="cmd">&nbsp;&nbsp;-H <span class="st">'content-type: application/json'</span> \</span></div>
         <div class="install-line"><span class="prompt"></span><span class="cmd">&nbsp;&nbsp;-d <span class="st">'{</span></span></div>
-        <div class="install-line"><span class="prompt"></span><span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;<span class="st">"workload": {"vcpu": <span class="num">32</span>, "ram_gb": <span class="num">128</span>, "optimize_for": "balanced"},</span></span></div>
+        <div class="install-line"><span class="prompt"></span><span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;<span class="st">"workload": {"vcpu": <span class="num">32</span>, "ram_gb": <span class="num">128</span>, "optimize_for": "balanced", "pricing_mode": "spot"},</span></span></div>
         <div class="install-line"><span class="prompt"></span><span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;<span class="st">"region": "us-central1",</span></span></div>
         <div class="install-line"><span class="prompt"></span><span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;<span class="st">"top_k": <span class="num">3</span></span></span></div>
         <div class="install-line"><span class="prompt"></span><span class="cmd">&nbsp;&nbsp;<span class="st">}'</span></span></div>
-        <div class="output-line" style="margin-top:10px">→ ranked list of 3 instances, filtered to instances available in us-central1</div>
+        <div class="output-line" style="margin-top:10px">→ top 3 instances in us-central1, scored on spot prices, each with per-component contributions and a one-line reason</div>
       </div>
     </div>
 
@@ -208,17 +208,17 @@
     <div class="how-card">
       <div class="how-num">1</div>
       <div class="how-title">Describe your workload</div>
-      <div class="how-body">Declare vCPU, RAM, archetype, disk requirements, GPU needs, and spot tolerance in a <code>WorkloadProfile</code> or a YAML file. cloudfit understands five resource archetypes: I/O, CPU, memory, GPU, and burst-parallel.</div>
+      <div class="how-body">Declare vCPU, RAM, archetype, disk requirements, GPU needs, and pricing mode (on-demand, spot, or 1-year committed use) in a <code>WorkloadProfile</code> or a YAML file. cloudfit understands five resource archetypes: I/O, CPU, memory, GPU, and burst-parallel.</div>
     </div>
     <div class="how-card">
       <div class="how-num">2</div>
       <div class="how-title">Score every candidate</div>
-      <div class="how-body">Hard floor filters eliminate instances that can't meet your minimum requirements. The scoring engine then weights cost, performance, and availability according to your <code>optimize_for</code> mode. No cloud credentials needed.</div>
+      <div class="how-body">Hard floor filters eliminate instances that can't meet your minimum requirements. The scoring engine then weights cost, performance, and availability according to your <code>optimize_for</code> mode, accounting for how fast each machine family really is. No cloud credentials needed.</div>
     </div>
     <div class="how-card">
       <div class="how-num">3</div>
       <div class="how-title">Get a ranked recommendation</div>
-      <div class="how-body">Receive a ranked list with composite scores and sub-scores for each candidate. Feed the result into Terraform, Nextflow, or any IaC pipeline. As provider plugins come online, the registry stays current as instance families are deprecated and released.</div>
+      <div class="how-body">Receive a ranked list with composite scores, sub-scores, and a one-line reason explaining each pick. Feed the result into Terraform, Nextflow, or any IaC pipeline. As provider plugins come online, the registry stays current as instance families are deprecated and released.</div>
     </div>
   </div>
 </section>
@@ -285,7 +285,7 @@
   </div>
 
   <p style="font-size:13px;color:var(--muted);margin:-8px 0 20px">
-    <code>cost_score</code> is relative to the candidate set (cheapest qualifying instance = 1.0, dearest = 0.0), so a real price gap moves the score. <code>archetype</code> sets the per-component performance weighting (e.g. <code>mem</code> weights RAM, <code>io</code> weights local SSD against the requested scratch disk), so it shapes the ranking on top of <code>optimize_for</code> and the hard floors.
+    <code>cost_score</code> is cost per unit of work (price in the chosen pricing mode divided by the family's <code>perf_factor</code>), relative to the candidate set (cheapest qualifying instance = 1.0, dearest = 0.0), so a faster family can win even at a higher hourly price. <code>perf_score</code> fits effective capacity (vCPU × <code>perf_factor</code>) to your request, and for GPU workloads scores accelerator throughput, so an A100 outranks a T4 at equal VRAM. <code>archetype</code> sets the per-component performance weighting (e.g. <code>mem</code> weights RAM, <code>io</code> weights local SSD against the requested scratch disk), so it shapes the ranking on top of <code>optimize_for</code> and the hard floors. Each result carries <code>contributions</code> (exactly what each term added to the score) and a one-line <code>reason</code>.
   </p>
 
   <div class="score-table-wrap">
@@ -356,13 +356,13 @@ candidates = [<br>
 ]<br>
 <br>
 <span class="kw">for</span> r <span class="kw">in</span> rank(profile, candidates):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">print</span>(<span class="fn">f</span><span class="st">"<span class="ac2">{r.instance.id:&lt;30}</span> score=<span class="ac2">{r.score:.2f}</span>  $<span class="ac2">{r.instance.price_hr:.2f}</span>/hr"</span>)
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">print</span>(<span class="fn">f</span><span class="st">"<span class="ac2">{r.instance.id:&lt;30}</span> score=<span class="ac2">{r.score:.2f}</span>  $<span class="ac2">{r.instance.price_hr:.2f}</span>/hr  <span class="ac2">{r.reason}</span>"</span>)
     </div>
   </div>
   <div class="output-block">
-    <span class="out-rank">#1</span><span class="out-inst">c2-standard-60 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="out-score">score=1.00</span>&nbsp;&nbsp;<span class="out-price">$3.13/hr</span><br>
-    <span class="out-rank">#2</span><span class="out-inst">c3d-standard-60-lssd &nbsp;&nbsp;</span><span class="out-score">score=0.67</span>&nbsp;&nbsp;<span class="out-price">$3.39/hr</span><br>
-    <span class="out-rank">#3</span><span class="out-inst">c7i.24xlarge &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="out-score">score=0.00</span>&nbsp;&nbsp;<span class="out-price">$4.28/hr</span>&nbsp;&nbsp;<span class="out-note">disqualified: 192 GB RAM &lt; 224 required</span>
+    <span class="out-rank">#1</span><span class="out-inst">c2-standard-60 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="out-score">score=1.00</span>&nbsp;&nbsp;<span class="out-price">$3.13/hr</span>&nbsp;&nbsp;<span class="out-note">Led by performance fit.</span><br>
+    <span class="out-rank">#2</span><span class="out-inst">c3d-standard-60-lssd &nbsp;&nbsp;</span><span class="out-score">score=0.67</span>&nbsp;&nbsp;<span class="out-price">$3.39/hr</span>&nbsp;&nbsp;<span class="out-note">Led by performance fit.</span><br>
+    <span class="out-rank">#3</span><span class="out-inst">c7i.24xlarge &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="out-score">score=0.00</span>&nbsp;&nbsp;<span class="out-price">$4.28/hr</span>&nbsp;&nbsp;<span class="out-note">RAM 192 GB &lt; required 224 GB</span>
   </div>
 </section>
 </div>
@@ -388,7 +388,7 @@ candidates = [<br>
     <a class="eco-card" href="https://github.com/cloudfit-io/cloudfit-provider-gcp" target="_blank" rel="noopener">
       <div class="eco-status live">● live</div>
       <div class="eco-name">cloudfit-provider-gcp</div>
-      <div class="eco-desc">Fetches GCP Compute Engine machine types, pricing, and availability and normalizes them for cloudfit-core. Can run on a daily cron to feed the registry.</div>
+      <div class="eco-desc">Fetches GCP Compute Engine machine types, availability, and on-demand, spot, and 1-year committed-use pricing, and normalizes them for cloudfit-core. A scheduled job refreshes the bundled snapshot prices weekly.</div>
       <div class="eco-install">pip install cloudfit-provider-gcp</div>
     </a>
     <a class="eco-card" href="https://github.com/cloudfit-io" target="_blank" rel="noopener">
@@ -406,7 +406,7 @@ candidates = [<br>
     <a class="eco-card" href="https://chaitanyakasaraneni-cloudfit-ui.hf.space" target="_blank" rel="noopener">
       <div class="eco-status live">● live</div>
       <div class="eco-name">cloudfit-ui</div>
-      <div class="eco-desc">One-click Gradio demo over the scoring engine. Workload profile in, ranked machine types out. Five example workloads (BWA-MEM2, Cell Ranger, AlphaFold, Nextflow burst, Spark ETL) built in.</div>
+      <div class="eco-desc">One-click Gradio demo over the scoring engine. Workload profile in, ranked machine types out. Pick a pricing mode and see why each machine was chosen. Five example workloads (BWA-MEM2, Cell Ranger, AlphaFold, Nextflow burst, Spark ETL) built in.</div>
       <div class="eco-install">→ open the demo</div>
     </a>
     <a class="eco-card" href="https://github.com/chaitanyakasaraneni/samplesheet-parser" target="_blank" rel="noopener">
