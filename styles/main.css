@@ -112,6 +112,7 @@ nav {
   border-left: 1px solid var(--border);
 }
 .nav-links a.cta:hover { background: rgba(77,255,145,0.06); }
+@media(max-width:760px){ .nav-links a:not(.cta){ display:none; } }
 
 /* ── hero ── */
 .hero {
@@ -229,7 +230,7 @@ nav {
   font-family: var(--mono);
 }
 .install-copy:hover { color: var(--muted); }
-.install-body { padding: 20px 20px 24px; }
+.install-body { padding: 20px 20px 24px; overflow-wrap: anywhere; }
 .install-line {
   display: flex;
   align-items: center;
@@ -287,6 +288,10 @@ nav {
   overflow: hidden;
 }
 @media(max-width:680px){ .how-grid{ grid-template-columns:1fr; } }
+/* grid children may shrink below their content width, so long code wraps instead of widening the page */
+.how-grid > *, .eco-grid > * { min-width: 0; }
+.try-grid { grid-template-columns: 1fr 1fr; gap: 18px; }
+@media(max-width:680px){ .try-grid{ grid-template-columns:1fr; } }
 .how-card {
   background: var(--surface);
   padding: 28px 24px;
@@ -379,7 +384,7 @@ nav {
 .score-table-wrap {
   border: 1px solid var(--border);
   border-radius: 8px;
-  overflow: hidden;
+  overflow-x: auto;
   margin-bottom: 24px;
 }
 table { width: 100%; border-collapse: collapse; }
@@ -468,6 +473,7 @@ tbody tr:last-child td { border-bottom: none; }
   margin-top: 12px;
   font-size: 12px;
   line-height: 1.9;
+  overflow-wrap: anywhere;
 }
 .out-rank { color: var(--accent); margin-right: 8px; }
 .out-inst { color: var(--text); }
@@ -625,3 +631,11 @@ code {
   border-radius: 3px;
   color: var(--accent2);
 }
+
+/* ── what's new ── */
+.release-grid { grid-template-columns: repeat(4,1fr); }
+@media(max-width:900px){ .release-grid{ grid-template-columns:1fr 1fr; } }
+@media(max-width:520px){ .release-grid{ grid-template-columns:1fr; } }
+.release-tag { display: block; color: var(--accent2); font-weight: 400; margin-top: 2px; }
+.release-note { font-size: 12px; color: var(--muted); margin-top: 16px; line-height: 1.7; }
+.release-note a { color: var(--accent2); }

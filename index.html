@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="cloudfit: cloud-agnostic machine type recommender for computational and bioinformatics workloads. Scores and ranks AWS, GCP, and Azure instances against your workload profile.">
+<meta name="description" content="cloudfit: cloud-agnostic machine type recommender for computational and bioinformatics workloads. Scores and ranks cloud instances against your workload profile and explains every pick. GCP today, AWS next.">
 <meta name="author" content="Chaitanya Krishna Kasaraneni">
 <meta property="og:title" content="cloudfit: cloud-agnostic machine type recommender">
-<meta property="og:description" content="Like a load balancer for cloud instances. Tells you the best machine for your workload across AWS, GCP, and Azure.">
+<meta property="og:description" content="Like a load balancer for cloud instances. Tells you the best machine for your workload, and why.">
 <meta property="og:url" content="https://cloudfit-io.github.io">
 <meta property="og:image" content="https://cloudfit-io.github.io/images/cloudfit-icon-1024.png">
 <meta property="og:type" content="website">
@@ -28,8 +28,10 @@
     <div class="nav-links">
       <a href="#try">Try it</a>
       <a href="#how">How it works</a>
+      <a href="#features">Features</a>
       <a href="#pipelines">Pipelines</a>
       <a href="#scoring">Scoring</a>
+      <a href="#whats-new">What's new</a>
       <a href="#ecosystem">Ecosystem</a>
       <a href="https://chaitanyakasaraneni-cloudfit-ui.hf.space" target="_blank" rel="noopener" class="cta">Try the demo ↗</a>
     </div>
@@ -43,7 +45,7 @@
     <div class="hero-kicker">open source · cloud-agnostic · bioinformatics-first</div>
     <h1>The right machine<br>for every<br><em>workload</em></h1>
     <p class="hero-sub">
-      cloudfit scores and ranks cloud instances across AWS, GCP, and Azure against your workload profile, and stays current as providers deprecate and release new machine types.
+      cloudfit scores and ranks cloud instances against your workload profile, explains every pick, and stays current as providers reprice, deprecate, and release machine types. GCP is live today; AWS is next.
     </p>
     <div class="hero-actions">
       <a href="https://chaitanyakasaraneni-cloudfit-ui.hf.space" target="_blank" rel="noopener" class="btn btn-primary">Try the demo ↗</a>
@@ -66,7 +68,7 @@
         <span class="prompt">$</span>
         <span class="cmd">pip install <span class="pkg">cloudfit-core</span></span>
       </div>
-      <div class="output-line">Successfully installed cloudfit-core-0.8.0</div>
+      <div class="output-line" id="coreVersion">Successfully installed cloudfit-core-0.8.0</div>
 
       <div class="install-line" style="margin-top:10px">
         <span class="prompt">$</span>
@@ -120,7 +122,7 @@
     </div>
   </div>
 
-  <div class="how-grid" style="grid-template-columns: 1fr 1fr; gap: 18px;">
+  <div class="how-grid try-grid">
 
     <!-- POST /recommend -->
     <div class="install-block">
@@ -226,11 +228,63 @@
 
 <hr class="divider">
 
+<!-- ── FEATURES ── -->
+<div class="wrap">
+<section class="section" id="features">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Features</h2>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="how-grid">
+    <div class="how-card">
+      <div class="how-title">Hard floors with reasons</div>
+      <div class="how-body">Region, vCPU, RAM, GPU presence, GPU VRAM, and lifecycle status are checked before scoring. Anything that cannot run your workload is disqualified with a plain-language reason, such as <code>RAM 192 GB &lt; required 224 GB</code>.</div>
+    </div>
+    <div class="how-card">
+      <div class="how-title">Effective capacity</div>
+      <div class="how-body">Each of 19 GCP machine families carries a documented <code>perf_factor</code> (n2 is the 1.0 baseline), so a c3 core is not treated like a t2d core. vCPU fit uses vCPU × <code>perf_factor</code>, and cost is scored per unit of work, so a faster family can win at a higher hourly price.</div>
+    </div>
+    <div class="how-card">
+      <div class="how-title">Spot and committed-use pricing</div>
+      <div class="how-body">Score on <code>on_demand</code>, <code>spot</code>, or 1-year committed-use (<code>cud_1yr</code>) prices. Burst workloads default to spot because they are restart-tolerant. When an instance has no price for the chosen mode, cost falls back to on-demand rather than looking free.</div>
+    </div>
+    <div class="how-card">
+      <div class="how-title">GPU-aware</div>
+      <div class="how-body">VRAM is a hard floor, and the GPU archetype scores accelerator throughput from a documented <code>GPU_CLASS</code> table, so an A100 outranks a T4 at equal VRAM. H100, A100, V100, L4, T4, P100, and P4 are covered.</div>
+    </div>
+    <div class="how-card">
+      <div class="how-title">Explainable picks</div>
+      <div class="how-body">Every result carries <code>contributions</code> (exactly what cost, perf, and availability added to the score) and a one-line <code>reason</code>, for example <em>Led by performance fit; c2d cores ~8% faster than baseline; priced on 1-year committed use.</em></div>
+    </div>
+    <div class="how-card">
+      <div class="how-title">Headroom</div>
+      <div class="how-body">Ask for spare capacity above what you declare (<code>headroom=0.25</code> targets 1.25x). In <code>hard</code> mode instances without the buffer are disqualified; in <code>soft</code> mode they lose fit credit but can still win on cost.</div>
+    </div>
+    <div class="how-card">
+      <div class="how-title">Archetypes, modes, and weights</div>
+      <div class="how-body">Five archetypes (I/O, CPU, memory, GPU, burst) set the perf weighting; four <code>optimize_for</code> modes (cost, balanced, performance, availability) set the score weights; custom <code>weights</code> override both. Profiles can be written in YAML and loaded with <code>from_yaml</code>.</div>
+    </div>
+    <div class="how-card">
+      <div class="how-title">Disk sizing from the run</div>
+      <div class="how-body"><code>compute_disk_tb</code> estimates scratch disk from sequencer, flowcell, and lane count (MiSeq, NextSeq, NovaSeq 6000, NovaSeq X, HiSeq) with a configurable safety margin, and feeds it straight into the profile.</div>
+    </div>
+    <div class="how-card">
+      <div class="how-title">Current catalog</div>
+      <div class="how-body">Machine types carry a lifecycle status: deprecated instances score lower and tombstoned ones are disqualified, so IaC configs warn instead of break. Spot, committed-use, and on-demand prices are refreshed weekly from the GCP billing catalog and land as reviewed pull requests.</div>
+    </div>
+  </div>
+</section>
+</div>
+
+<hr class="divider">
+
 <!-- ── PIPELINES ── -->
 <div class="wrap">
 <section class="section" id="pipelines">
   <div class="section-header">
-    <span class="section-num">03</span>
+    <span class="section-num">04</span>
     <h2 class="section-title">Bioinformatics pipelines</h2>
     <div class="section-rule"></div>
   </div>
@@ -275,7 +329,7 @@
 <div class="wrap">
 <section class="section" id="scoring">
   <div class="section-header">
-    <span class="section-num">04</span>
+    <span class="section-num">05</span>
     <h2 class="section-title">Scoring model</h2>
     <div class="section-rule"></div>
   </div>
@@ -369,11 +423,54 @@ candidates = [<br>
 
 <hr class="divider">
 
+<!-- ── WHAT'S NEW ── -->
+<div class="wrap">
+<section class="section" id="whats-new">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <h2 class="section-title">What's new</h2>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="eco-grid release-grid">
+    <a class="eco-card" data-release="cloudfit-core" href="https://github.com/cloudfit-io/cloudfit-core/releases/latest" target="_blank" rel="noopener">
+      <div class="eco-status live">● latest release</div>
+      <div class="eco-name">cloudfit-core <span class="release-tag">v0.8.0</span></div>
+      <div class="eco-desc">Scoring engine</div>
+      <div class="eco-install">release notes ↗</div>
+    </a>
+    <a class="eco-card" data-release="cloudfit-provider-gcp" href="https://github.com/cloudfit-io/cloudfit-provider-gcp/releases/latest" target="_blank" rel="noopener">
+      <div class="eco-status live">● latest release</div>
+      <div class="eco-name">cloudfit-provider-gcp <span class="release-tag">v0.3.1</span></div>
+      <div class="eco-desc">GCP provider</div>
+      <div class="eco-install">release notes ↗</div>
+    </a>
+    <a class="eco-card" data-release="cloudfit-api" href="https://github.com/cloudfit-io/cloudfit-api/releases/latest" target="_blank" rel="noopener">
+      <div class="eco-status live">● latest release</div>
+      <div class="eco-name">cloudfit-api <span class="release-tag">v0.8.0</span></div>
+      <div class="eco-desc">REST API</div>
+      <div class="eco-install">release notes ↗</div>
+    </a>
+    <a class="eco-card" data-release="cloudfit-ui" href="https://github.com/cloudfit-io/cloudfit-ui/releases/latest" target="_blank" rel="noopener">
+      <div class="eco-status live">● latest release</div>
+      <div class="eco-name">cloudfit-ui <span class="release-tag">v0.2.0</span></div>
+      <div class="eco-desc">Gradio demo</div>
+      <div class="eco-install">release notes ↗</div>
+    </a>
+  </div>
+  <p class="release-note">
+    Each package keeps its own changelog, and every tagged release is published to GitHub Releases automatically, so this list is always current. Full history: <a href="https://github.com/cloudfit-io/cloudfit-core/blob/main/CHANGELOG.md" target="_blank" rel="noopener">core</a> · <a href="https://github.com/cloudfit-io/cloudfit-provider-gcp/blob/main/CHANGELOG.md" target="_blank" rel="noopener">provider-gcp</a> · <a href="https://github.com/cloudfit-io/cloudfit-api/blob/main/CHANGELOG.md" target="_blank" rel="noopener">api</a> · <a href="https://github.com/cloudfit-io/cloudfit-ui/blob/main/CHANGELOG.md" target="_blank" rel="noopener">ui</a>.
+  </p>
+</section>
+</div>
+
+<hr class="divider">
+
 <!-- ── ECOSYSTEM ── -->
 <div class="wrap">
 <section class="section" id="ecosystem">
   <div class="section-header">
-    <span class="section-num">05</span>
+    <span class="section-num">07</span>
     <h2 class="section-title">Ecosystem</h2>
     <div class="section-rule"></div>
   </div>
@@ -382,7 +479,7 @@ candidates = [<br>
     <a class="eco-card" href="https://github.com/cloudfit-io/cloudfit-core" target="_blank" rel="noopener">
       <div class="eco-status live">● live</div>
       <div class="eco-name">cloudfit-core</div>
-      <div class="eco-desc">Scoring engine, workload profiles, hard floor filters, dynamic disk sizing. Pure Python, no cloud credentials needed.</div>
+      <div class="eco-desc">Scoring engine: workload profiles, hard floors, effective capacity, spot and committed-use pricing, GPU throughput, explainable picks, dynamic disk sizing. Pure Python, no cloud credentials needed.</div>
       <div class="eco-install">pip install cloudfit-core</div>
     </a>
     <a class="eco-card" href="https://github.com/cloudfit-io/cloudfit-provider-gcp" target="_blank" rel="noopener">
@@ -400,7 +497,7 @@ candidates = [<br>
     <a class="eco-card" href="https://chaitanyakasaraneni-cloudfit-api.hf.space/docs" target="_blank" rel="noopener">
       <div class="eco-status live">● live</div>
       <div class="eco-name">cloudfit-api</div>
-      <div class="eco-desc">REST API (service, not a library). <code>/recommend</code> · <code>/instances</code> · <code>/providers</code> · <code>/diff</code>. Multi-region snapshot (5 regions). FastAPI with OpenAPI docs. Self-host with Docker, or use the live demo on Hugging Face Spaces.</div>
+      <div class="eco-desc">REST API (service, not a library). <code>/recommend</code> · <code>/instances</code> · <code>/providers</code> · <code>/diff</code>, with a pricing mode and a reason for every pick. Multi-region snapshot (5 regions) with weekly price refresh. FastAPI with OpenAPI docs. Self-host with Docker, or use the live demo on Hugging Face Spaces.</div>
       <div class="eco-install">→ open /docs to try it</div>
     </a>
     <a class="eco-card" href="https://chaitanyakasaraneni-cloudfit-ui.hf.space" target="_blank" rel="noopener">
