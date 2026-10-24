@@ -68,7 +68,7 @@
         <span class="prompt">$</span>
         <span class="cmd">pip install <span class="pkg">cloudfit-core</span></span>
       </div>
-      <div class="output-line" id="coreVersion">Successfully installed cloudfit-core-0.8.3</div>
+      <div class="output-line" id="coreVersion">Successfully installed cloudfit-core-0.10.0</div>
 
       <div class="install-line" style="margin-top:10px">
         <span class="prompt">$</span>
@@ -339,7 +339,7 @@
   </div>
 
   <p style="font-size:13px;color:var(--muted);margin:-8px 0 20px">
-    <code>cost_score</code> is cost per unit of work (price in the chosen pricing mode divided by the family's <code>perf_factor</code>), relative to the candidate set (cheapest qualifying instance = 1.0, dearest = 0.0), so a faster family can win even at a higher hourly price. <code>perf_score</code> fits effective capacity (vCPU × <code>perf_factor</code>) to your request, and for GPU workloads scores accelerator throughput, so an A100 outranks a T4 at equal VRAM. <code>archetype</code> sets the per-component performance weighting (e.g. <code>mem</code> weights RAM, <code>io</code> weights local SSD against the requested scratch disk), so it shapes the ranking on top of <code>optimize_for</code> and the hard floors. Each result carries <code>contributions</code> (exactly what each term added to the score) and a one-line <code>reason</code>.
+    <code>cost_score</code> is cost per unit of work (price in the chosen pricing mode divided by the family's <code>perf_factor</code>), relative to the cheapest qualifying instance (which scores 1.0; one costing twice as much per unit of work scores 0.5), so a faster family can win even at a higher hourly price. <code>perf_score</code> fits effective capacity (vCPU × <code>perf_factor</code>) to your request, and for GPU workloads scores accelerator throughput, so an A100 outranks a T4 at equal VRAM. <code>archetype</code> sets the per-component performance weighting (e.g. <code>mem</code> weights RAM, <code>io</code> weights local SSD against the requested scratch disk), so it shapes the ranking on top of <code>optimize_for</code> and the hard floors. Each result carries <code>contributions</code> (exactly what each term added to the score) and a one-line <code>reason</code>.
   </p>
 
   <div class="score-table-wrap">
@@ -415,7 +415,7 @@ candidates = [<br>
   </div>
   <div class="output-block">
     <span class="out-rank">#1</span><span class="out-inst">c2-standard-60 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="out-score">score=1.00</span>&nbsp;&nbsp;<span class="out-price">$3.13/hr</span>&nbsp;&nbsp;<span class="out-note">Led by performance fit.</span><br>
-    <span class="out-rank">#2</span><span class="out-inst">c3d-standard-60-lssd &nbsp;&nbsp;</span><span class="out-score">score=0.67</span>&nbsp;&nbsp;<span class="out-price">$3.39/hr</span>&nbsp;&nbsp;<span class="out-note">Led by performance fit.</span><br>
+    <span class="out-rank">#2</span><span class="out-inst">c3d-standard-60-lssd &nbsp;&nbsp;</span><span class="out-score">score=0.97</span>&nbsp;&nbsp;<span class="out-price">$3.39/hr</span>&nbsp;&nbsp;<span class="out-note">Led by performance fit.</span><br>
     <span class="out-rank">#3</span><span class="out-inst">c7i.24xlarge &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="out-score">score=0.00</span>&nbsp;&nbsp;<span class="out-price">$4.28/hr</span>&nbsp;&nbsp;<span class="out-note">RAM 192 GB &lt; required 224 GB</span>
   </div>
 </section>
@@ -435,7 +435,7 @@ candidates = [<br>
   <div class="eco-grid release-grid">
     <a class="eco-card" data-release="cloudfit-core" href="https://github.com/cloudfit-io/cloudfit-core/releases/latest" target="_blank" rel="noopener">
       <div class="eco-status live">● latest release</div>
-      <div class="eco-name">cloudfit-core <span class="release-tag">v0.8.3</span></div>
+      <div class="eco-name">cloudfit-core <span class="release-tag">v0.10.0</span></div>
       <div class="eco-desc">Scoring engine</div>
       <div class="eco-install">release notes ↗</div>
     </a>
@@ -447,13 +447,13 @@ candidates = [<br>
     </a>
     <a class="eco-card" data-release="cloudfit-api" href="https://github.com/cloudfit-io/cloudfit-api/releases/latest" target="_blank" rel="noopener">
       <div class="eco-status live">● latest release</div>
-      <div class="eco-name">cloudfit-api <span class="release-tag">v0.8.4</span></div>
+      <div class="eco-name">cloudfit-api <span class="release-tag">v0.8.5</span></div>
       <div class="eco-desc">REST API</div>
       <div class="eco-install">release notes ↗</div>
     </a>
     <a class="eco-card" data-release="cloudfit-ui" href="https://github.com/cloudfit-io/cloudfit-ui/releases/latest" target="_blank" rel="noopener">
       <div class="eco-status live">● latest release</div>
-      <div class="eco-name">cloudfit-ui <span class="release-tag">v0.2.3</span></div>
+      <div class="eco-name">cloudfit-ui <span class="release-tag">v0.2.4</span></div>
       <div class="eco-desc">Gradio demo</div>
       <div class="eco-install">release notes ↗</div>
     </a>
