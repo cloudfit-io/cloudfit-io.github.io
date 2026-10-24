@@ -67,7 +67,7 @@ selectArch(0);
 // GitHub Releases are published automatically from each package's CHANGELOG,
 // so the site reads them instead of keeping its own copy. On any failure
 // (offline, rate limit) the static fallback in the HTML stays in place.
-const RELEASE_REPOS = ['cloudfit-core', 'cloudfit-provider-gcp', 'cloudfit-api', 'cloudfit-ui'];
+const RELEASE_REPOS = ['cloudfit-core', 'cloudfit-provider-gcp', 'cloudfit-provider-aws', 'cloudfit-api', 'cloudfit-ui'];
 
 function formatDate(iso) {
   return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="cloudfit: cloud-agnostic machine type recommender for computational and bioinformatics workloads. Scores and ranks cloud instances against your workload profile and explains every pick. GCP today, AWS next.">
+<meta name="description" content="cloudfit: cloud-agnostic machine type recommender for computational and bioinformatics workloads. Scores and ranks GCP and AWS instances against your workload profile and explains every pick.">
 <meta name="author" content="Chaitanya Krishna Kasaraneni">
 <meta property="og:title" content="cloudfit: cloud-agnostic machine type recommender">
 <meta property="og:description" content="Like a load balancer for cloud instances. Tells you the best machine for your workload, and why.">
@@ -45,7 +45,7 @@
     <div class="hero-kicker">open source · cloud-agnostic · bioinformatics-first</div>
     <h1>The right machine<br>for every<br><em>workload</em></h1>
     <p class="hero-sub">
-      cloudfit scores and ranks cloud instances against your workload profile, explains every pick, and stays current as providers reprice, deprecate, and release machine types. GCP is live today; AWS is next.
+      cloudfit scores and ranks cloud instances against your workload profile, explains every pick, and stays current as providers reprice, deprecate, and release machine types. GCP and AWS are both live, ranked side by side.
     </p>
     <div class="hero-actions">
       <a href="https://chaitanyakasaraneni-cloudfit-ui.hf.space" target="_blank" rel="noopener" class="btn btn-primary">Try the demo ↗</a>
@@ -68,7 +68,7 @@
         <span class="prompt">$</span>
         <span class="cmd">pip install <span class="pkg">cloudfit-core</span></span>
       </div>
-      <div class="output-line" id="coreVersion">Successfully installed cloudfit-core-0.10.0</div>
+      <div class="output-line" id="coreVersion">Successfully installed cloudfit-core-0.10.1</div>
 
       <div class="install-line" style="margin-top:10px">
         <span class="prompt">$</span>
@@ -108,7 +108,7 @@
 
   <div class="how-card" style="margin-bottom: 24px;">
     <div class="how-body">
-      <p>Two ways to try cloudfit right now. The one-click <strong>Gradio UI</strong> takes a workload profile through a form and returns ranked instance recommendations. The <strong>FastAPI service</strong> serves the same scoring engine over HTTP for programmatic use. Both run on a bundled snapshot of <strong>875 GCP machine types across 5 regions</strong> (us-central1, us-east1, us-west1, europe-west4, asia-southeast1) with realistic asymmetric availability, per-family speed factors, GPU types, and on-demand, spot, and 1-year committed-use prices refreshed from the live GCP billing catalog. Every pick comes with a one-line reason. No credentials needed.</p>
+      <p>Two ways to try cloudfit right now. The one-click <strong>Gradio UI</strong> takes a workload profile through a form and returns ranked instance recommendations. The <strong>FastAPI service</strong> serves the same scoring engine over HTTP for programmatic use. Both run on bundled snapshots of <strong>875 GCP machine types</strong> (us-central1, us-east1, us-west1, europe-west4, asia-southeast1; on-demand, spot, and 1-year committed-use prices from the live GCP billing catalog) and <strong>about 6,000 AWS EC2 types</strong> (us-east-1, us-east-2, us-west-2, eu-west-1, ap-southeast-1; on-demand and 1-year reserved prices from AWS's public price list), with per-family speed factors and GPU types, refreshed weekly. Both clouds are ranked together, or one at a time. Every pick comes with a one-line reason. No credentials needed.</p>
       <p style="margin-top:12px">
         <a href="https://chaitanyakasaraneni-cloudfit-ui.hf.space" target="_blank" rel="noopener" class="btn btn-primary">Open the UI ↗</a>
         &nbsp;
@@ -220,7 +220,7 @@
     <div class="how-card">
       <div class="how-num">3</div>
       <div class="how-title">Get a ranked recommendation</div>
-      <div class="how-body">Receive a ranked list with composite scores, sub-scores, and a one-line reason explaining each pick. Feed the result into Terraform, Nextflow, or any IaC pipeline. As provider plugins come online, the registry stays current as instance families are deprecated and released.</div>
+      <div class="how-body">Receive a ranked list with composite scores, sub-scores, and a one-line reason explaining each pick. Feed the result into Terraform, Nextflow, or any IaC pipeline. The GCP and AWS provider plugins keep the catalog current as instance families are repriced, deprecated, and released.</div>
     </div>
   </div>
 </section>
@@ -244,7 +244,7 @@
     </div>
     <div class="how-card">
       <div class="how-title">Effective capacity</div>
-      <div class="how-body">Each of 19 GCP machine families carries a documented <code>perf_factor</code> (n2 is the 1.0 baseline), so a c3 core is not treated like a t2d core. vCPU fit uses vCPU × <code>perf_factor</code>, and cost is scored per unit of work, so a faster family can win at a higher hourly price.</div>
+      <div class="how-body">Every GCP machine family and AWS EC2 family carries a documented <code>perf_factor</code> on one scale (GCP n2 is the 1.0 baseline), so a c3 core is not treated like a t2d core, and a Graviton4 core not like a 2013 Xeon. vCPU fit uses vCPU × <code>perf_factor</code>, and cost is scored per unit of work, so a faster family can win at a higher hourly price.</div>
     </div>
     <div class="how-card">
       <div class="how-title">Spot and committed-use pricing</div>
@@ -402,7 +402,7 @@ profile = WorkloadProfile(<br>
 &nbsp;&nbsp;&nbsp;&nbsp;optimize_for=<span class="st">"balanced"</span>,<br>
 )<br>
 <br>
-<span class="cm"># supply candidates yourself, or fetch them live with cloudfit-provider-gcp</span><br>
+<span class="cm"># supply candidates yourself, or fetch them live with cloudfit-provider-gcp / -aws</span><br>
 candidates = [<br>
 &nbsp;&nbsp;&nbsp;&nbsp;MachineType(id=<span class="st">"c2-standard-60"</span>,       provider=<span class="st">"gcp"</span>, vcpu=<span class="num">60</span>, ram_gb=<span class="num">240</span>, price_hr=<span class="num">3.13</span>),<br>
 &nbsp;&nbsp;&nbsp;&nbsp;MachineType(id=<span class="st">"c3d-standard-60-lssd"</span>, provider=<span class="st">"gcp"</span>, vcpu=<span class="num">60</span>, ram_gb=<span class="num">240</span>, price_hr=<span class="num">3.39</span>),<br>
@@ -435,7 +435,7 @@ candidates = [<br>
   <div class="eco-grid release-grid">
     <a class="eco-card" data-release="cloudfit-core" href="https://github.com/cloudfit-io/cloudfit-core/releases/latest" target="_blank" rel="noopener">
       <div class="eco-status live">● latest release</div>
-      <div class="eco-name">cloudfit-core <span class="release-tag">v0.10.0</span></div>
+      <div class="eco-name">cloudfit-core <span class="release-tag">v0.10.1</span></div>
       <div class="eco-desc">Scoring engine</div>
       <div class="eco-install">release notes ↗</div>
     </a>
@@ -445,21 +445,27 @@ candidates = [<br>
       <div class="eco-desc">GCP provider</div>
       <div class="eco-install">release notes ↗</div>
     </a>
+    <a class="eco-card" data-release="cloudfit-provider-aws" href="https://github.com/cloudfit-io/cloudfit-provider-aws/releases/latest" target="_blank" rel="noopener">
+      <div class="eco-status live">● latest release</div>
+      <div class="eco-name">cloudfit-provider-aws <span class="release-tag">v0.1.0</span></div>
+      <div class="eco-desc">AWS provider</div>
+      <div class="eco-install">release notes ↗</div>
+    </a>
     <a class="eco-card" data-release="cloudfit-api" href="https://github.com/cloudfit-io/cloudfit-api/releases/latest" target="_blank" rel="noopener">
       <div class="eco-status live">● latest release</div>
-      <div class="eco-name">cloudfit-api <span class="release-tag">v0.8.5</span></div>
+      <div class="eco-name">cloudfit-api <span class="release-tag">v0.9.0</span></div>
       <div class="eco-desc">REST API</div>
       <div class="eco-install">release notes ↗</div>
     </a>
     <a class="eco-card" data-release="cloudfit-ui" href="https://github.com/cloudfit-io/cloudfit-ui/releases/latest" target="_blank" rel="noopener">
       <div class="eco-status live">● latest release</div>
-      <div class="eco-name">cloudfit-ui <span class="release-tag">v0.2.4</span></div>
+      <div class="eco-name">cloudfit-ui <span class="release-tag">v0.3.1</span></div>
       <div class="eco-desc">Gradio demo</div>
       <div class="eco-install">release notes ↗</div>
     </a>
   </div>
   <p class="release-note">
-    Each package keeps its own changelog, and every tagged release is published to GitHub Releases automatically, so this list is always current. Full history: <a href="https://github.com/cloudfit-io/cloudfit-core/blob/main/CHANGELOG.md" target="_blank" rel="noopener">core</a> · <a href="https://github.com/cloudfit-io/cloudfit-provider-gcp/blob/main/CHANGELOG.md" target="_blank" rel="noopener">provider-gcp</a> · <a href="https://github.com/cloudfit-io/cloudfit-api/blob/main/CHANGELOG.md" target="_blank" rel="noopener">api</a> · <a href="https://github.com/cloudfit-io/cloudfit-ui/blob/main/CHANGELOG.md" target="_blank" rel="noopener">ui</a>.
+    Each package keeps its own changelog, and every tagged release is published to GitHub Releases automatically, so this list is always current. Full history: <a href="https://github.com/cloudfit-io/cloudfit-core/blob/main/CHANGELOG.md" target="_blank" rel="noopener">core</a> · <a href="https://github.com/cloudfit-io/cloudfit-provider-gcp/blob/main/CHANGELOG.md" target="_blank" rel="noopener">provider-gcp</a> · <a href="https://github.com/cloudfit-io/cloudfit-provider-aws/blob/main/CHANGELOG.md" target="_blank" rel="noopener">provider-aws</a> · <a href="https://github.com/cloudfit-io/cloudfit-api/blob/main/CHANGELOG.md" target="_blank" rel="noopener">api</a> · <a href="https://github.com/cloudfit-io/cloudfit-ui/blob/main/CHANGELOG.md" target="_blank" rel="noopener">ui</a>.
   </p>
 </section>
 </div>
@@ -488,22 +494,22 @@ candidates = [<br>
       <div class="eco-desc">Fetches GCP Compute Engine machine types, availability, and on-demand, spot, and 1-year committed-use pricing, and normalizes them for cloudfit-core. A scheduled job refreshes the bundled snapshot prices weekly.</div>
       <div class="eco-install">pip install cloudfit-provider-gcp</div>
     </a>
-    <a class="eco-card" href="https://github.com/cloudfit-io" target="_blank" rel="noopener">
-      <div class="eco-status soon">○ coming soon</div>
+    <a class="eco-card" href="https://github.com/cloudfit-io/cloudfit-provider-aws" target="_blank" rel="noopener">
+      <div class="eco-status live">● live</div>
       <div class="eco-name">cloudfit-provider-aws</div>
-      <div class="eco-desc">Fetches AWS EC2 instance specs and on-demand pricing. Handles deprecation tombstoning so IaC configs warn instead of break.</div>
+      <div class="eco-desc">Reads AWS's public EC2 price list (no AWS account or credentials) and normalizes every Linux instance type for cloudfit-core: on-demand and 1-year reserved prices, per-family speed factors, GPU model and memory, and previous generations marked deprecated. A scheduled job rebuilds the bundled snapshot weekly.</div>
       <div class="eco-install">pip install cloudfit-provider-aws</div>
     </a>
     <a class="eco-card" href="https://chaitanyakasaraneni-cloudfit-api.hf.space/docs" target="_blank" rel="noopener">
       <div class="eco-status live">● live</div>
       <div class="eco-name">cloudfit-api</div>
-      <div class="eco-desc">REST API (service, not a library). <code>/recommend</code> · <code>/instances</code> · <code>/providers</code> · <code>/diff</code>, with a pricing mode and a reason for every pick. Multi-region snapshot (5 regions) with weekly price refresh. FastAPI with OpenAPI docs. Self-host with Docker, or use the live demo on Hugging Face Spaces.</div>
+      <div class="eco-desc">REST API (service, not a library). <code>/recommend</code> · <code>/instances</code> · <code>/providers</code> · <code>/diff</code>, with a pricing mode and a reason for every pick. GCP and AWS snapshots (5 regions each) refreshed weekly; <code>workload.providers</code> picks the clouds. FastAPI with OpenAPI docs. Self-host with Docker, or use the live demo on Hugging Face Spaces.</div>
       <div class="eco-install">→ open /docs to try it</div>
     </a>
     <a class="eco-card" href="https://chaitanyakasaraneni-cloudfit-ui.hf.space" target="_blank" rel="noopener">
       <div class="eco-status live">● live</div>
       <div class="eco-name">cloudfit-ui</div>
-      <div class="eco-desc">One-click Gradio demo over the scoring engine. Workload profile in, ranked machine types out. Pick a pricing mode and see why each machine was chosen. Five example workloads (BWA-MEM2, Cell Ranger, AlphaFold, Nextflow burst, Spark ETL) built in.</div>
+      <div class="eco-desc">One-click Gradio demo over the scoring engine. Workload profile in, ranked GCP and AWS machine types out. Pick a pricing mode and the clouds, and see why each machine was chosen. Five example workloads (BWA-MEM2, Cell Ranger, AlphaFold, Nextflow burst, Spark ETL) built in.</div>
       <div class="eco-install">→ open the demo</div>
     </a>
     <a class="eco-card" href="https://github.com/chaitanyakasaraneni/samplesheet-parser" target="_blank" rel="noopener">

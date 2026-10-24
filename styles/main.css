@@ -633,8 +633,9 @@ code {
 }
 
 /* ── what's new ── */
-.release-grid { grid-template-columns: repeat(4,1fr); }
-@media(max-width:900px){ .release-grid{ grid-template-columns:1fr 1fr; } }
+.release-grid { grid-template-columns: repeat(5,1fr); }
+@media(max-width:1000px){ .release-grid{ grid-template-columns:1fr 1fr 1fr; } }
+@media(max-width:680px){ .release-grid{ grid-template-columns:1fr 1fr; } }
 @media(max-width:520px){ .release-grid{ grid-template-columns:1fr; } }
 .release-tag { display: block; color: var(--accent2); font-weight: 400; margin-top: 2px; }
 .release-note { font-size: 12px; color: var(--muted); margin-top: 16px; line-height: 1.7; }
