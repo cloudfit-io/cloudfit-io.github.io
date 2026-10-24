@@ -252,7 +252,7 @@
     </div>
     <div class="how-card">
       <div class="how-title">GPU-aware</div>
-      <div class="how-body">VRAM is a hard floor, and the GPU archetype scores accelerator throughput from a documented <code>GPU_CLASS</code> table, so an A100 outranks a T4 at equal VRAM. H100, A100, V100, L4, T4, P100, and P4 are covered.</div>
+      <div class="how-body">VRAM is a hard floor, and the GPU archetype scores accelerator throughput from a documented <code>GPU_CLASS</code> table, so an A100 outranks a T4 at equal VRAM. H100, H200, L40S, A100, V100, L4, A10G, T4 (and T4G), P100, Radeon Pro V520, P4, M60, and K80 are covered, across GCP and AWS.</div>
     </div>
     <div class="how-card">
       <div class="how-title">Explainable picks</div>
@@ -290,27 +290,27 @@
   </div>
 
   <div class="arch-grid" id="archGrid">
-    <div class="arch-card active" onclick="selectArch(0)">
+    <div class="arch-card active" role="button" tabindex="0" aria-controls="archDetail" onclick="selectArch(0)">
       <div class="arch-tag">I/O</div>
       <div class="arch-name">I/O bound</div>
       <div class="arch-hint">disk-saturating</div>
     </div>
-    <div class="arch-card" onclick="selectArch(1)">
+    <div class="arch-card" role="button" tabindex="0" aria-controls="archDetail" onclick="selectArch(1)">
       <div class="arch-tag">CPU</div>
       <div class="arch-name">CPU bound</div>
       <div class="arch-hint">thread-parallel</div>
     </div>
-    <div class="arch-card" onclick="selectArch(2)">
+    <div class="arch-card" role="button" tabindex="0" aria-controls="archDetail" onclick="selectArch(2)">
       <div class="arch-tag">MEM</div>
       <div class="arch-name">Memory bound</div>
       <div class="arch-hint">large index</div>
     </div>
-    <div class="arch-card" onclick="selectArch(3)">
+    <div class="arch-card" role="button" tabindex="0" aria-controls="archDetail" onclick="selectArch(3)">
       <div class="arch-tag">GPU</div>
       <div class="arch-name">GPU / ML</div>
       <div class="arch-hint">inference</div>
     </div>
-    <div class="arch-card" onclick="selectArch(4)">
+    <div class="arch-card" role="button" tabindex="0" aria-controls="archDetail" onclick="selectArch(4)">
       <div class="arch-tag">BURST</div>
       <div class="arch-name">Burst parallel</div>
       <div class="arch-hint">scatter-gather</div>

@@ -41,8 +41,10 @@ const ARCHETYPES = [
 ];
 
 function selectArch(i) {
-  document.querySelectorAll('.arch-card').forEach((c, j) =>
-    c.classList.toggle('active', i === j));
+  document.querySelectorAll('.arch-card').forEach((c, j) => {
+    c.classList.toggle('active', i === j);
+    c.setAttribute('aria-pressed', String(i === j));
+  });
   const a = ARCHETYPES[i];
   document.getElementById('archDetail').innerHTML = `
     <div>
@@ -62,6 +64,16 @@ function selectArch(i) {
 }
 
 selectArch(0);
+
+// The archetype cards are buttons for keyboard users too: Enter or Space selects.
+document.querySelectorAll('.arch-card').forEach(card => {
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      card.click();
+    }
+  });
+});
 
 // ── latest releases ──
 // GitHub Releases are published automatically from each package's CHANGELOG,
